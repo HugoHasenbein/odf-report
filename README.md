@@ -21,8 +21,10 @@ gem 'odf-report'
 
 First of all, you need a `.odt` file to serve as a template.
 Templates are normal .odt files with `[PLACEHOLDERS]` for *substitutions*.
-There are *four* kinds of substitutions available:
+There are *six* kinds of substitutions available:
 * fields
+* text
+* bookmarks
 * tables
 * images
 * sections
@@ -42,6 +44,123 @@ end
 
 All occurences of `[USER_NAME]` found in the file will be replaced by the value of `@user.name` whereas all `[ADDRESS]` 'es will contains `My new address`
 
+#### Text
+
+You can replace any word anywhere in the template in square brackets, f.i. [TEXT], with html. The supplied html string may be large.
+Currently suppoerted html tags
+
+##### HTML Inline Elements
+
+<a> <span> <strong> <b <em> <i< ins> <u> <del> <strike> <sub> <sup> <ode>
+
+##### HTML Block Elements
+
+<ol, <ul>, li>
+<table>
+<p>
+<blockquote>
+<pre>
+
+<ol>, <ul>, <li> may be nested
+<table> may be nested
+
+
+In the following example
+
+:text wil replace [TEXT], :example will replace [EXAMPLE], and so on
+
+`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+  r.add_text :text, html
+end`
+
+#### Bookmarks
+
+In the following example
+
+:text wil replace boomark TEXT, :example will replace bookmark EXAMPLE, and so on
+
+`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+  r.add_bookmark :text, html
+end`
+
+html will either be copied after an empty bookmark or will replace the bookmark, which as content
+
+#### bookmark reader
+
+In the following example
+
+:text will add content to named section TEXT, :example will add content to named section EXAMPLE, and so on
+
+`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+  r.add_section_reader
+  r.add_bookmark_reader
+  hash = r.extract
+end
+hash = report.extract`
+
+will return a hash with all bookmarks found in the template
+
+`{
+  :content => {
+    :sections => {
+      "Section1" => "[TEXT]"
+    }, 
+    :bookmarks => { 
+      "MyREF" => "REF", 
+      "BOOKMARK1" => "MyBookmarks",
+      "Bookmark 2" => "My second bookmark", 
+      "Bookmark without content Bookmark 1" => "All text to the end of the paragrapgh"
+     }
+  }, 
+  :styles => {
+    :sections=>{},
+    :bookmarks=>{}
+  }
+}`
+
+content hash contains bookmarks of the page content, styles hash contains bookmarks on the master page, i.e. footers and headers of the odt template
+
+it is possible to query specific bookmarks, sections
+
+`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+  r.add_section_reader "My Section"
+  r.add_bookmark_reader "Wonderful Bokokmark"
+  hash = r.extract # here ...
+end
+hash = report.extract # ...or here`
+
+`{
+  :content => {
+    :sections => {
+      "My Section" => "My Text"
+    }, 
+    :bookmarks => { 
+      "Wonderful Bokokmark" => "Wonderful Text"
+     }
+  }, 
+  :styles => {
+    :sections=>{},
+    :bookmarks=>{}
+  }
+}`
+
+#### automatic styles
+
+add standard styles for any of
+
+h1, h2, h3, h4, h5, h6, p, subparagraph, center, left, right, 
+justify, bold, underline, italic, strikethrough, sup, sub, a, 
+pre, quote, code, table, tr, td, tc, td
+
+`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+  r.add_style :h1, :h2, :h3
+  r.add_style :p, :a
+end`
+
+#### styles
+
+every tag will get a style name identical to its name, so <h1> will have a style-name "h1" associated to it. In your template you may create a format "h1", "h2", "p" and so forth. All styles refer to a style "body". So define font, color, size, etc in body and it will have effect on all styles. If there is no format named body, then Standard format is chosen by the odt program (LibreOffice, Word...)
+	
 
 #### Tables
 
