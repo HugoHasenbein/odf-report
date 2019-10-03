@@ -87,7 +87,7 @@ report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
 end
 ```
 
-html will either be copied after an empty bookmark or will replace the bookmark, which as content
+html will either be copied after an empty bookmark or will replace the bookmark
 
 #### bookmark reader
 
@@ -158,11 +158,11 @@ hash = report.extract # ...or here
 
 #### automatic styles
 
-add standard styles for any of
+add standard styles for any of html tags 
 
-h1, h2, h3, h4, h5, h6, p, subparagraph, center, left, right, 
-justify, bold, underline, italic, strikethrough, sup, sub, a, 
-pre, quote, code, table, tr, td, tc, td
+ h1, h2, h3, h4, h5, h6, p, subparagraph, center, left, right, 
+ justify, bold, underline, italic, strikethrough, sup, sub, a, 
+ pre, quote, code, table, tr, td, tc, td
 
 ```ruby
 report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
