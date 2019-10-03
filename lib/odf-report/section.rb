@@ -15,6 +15,11 @@ module ODFReport
 
     end
 
+    def get_section_content( doc )
+      return unless @section_node = find_section_node(doc)
+      @section_node.content
+    end #def
+
     def replace!(doc, row = nil)
 
       return unless @section_node = find_section_node(doc)
@@ -44,20 +49,15 @@ module ODFReport
   private
 
     def find_section_node(doc)
-
       sections = doc.xpath(".//text:section[@text:name='#{@name}']")
-
       sections.empty? ? nil : sections.first
-
     end
 
     def get_section_node
       node = @section_node.dup
-
       name = node.get_attribute('text:name').to_s
       @idx ||=0; @idx +=1
       node.set_attribute('text:name', "#{name}_#{@idx}")
-
       node
     end
 

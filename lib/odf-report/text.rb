@@ -10,7 +10,12 @@ module ODFReport
 
       text_value = get_value(data_item)
 
-      @parser = Parser::Default.new(text_value, node)
+      @parser = Parser::Default.new(text_value, node, 
+        :doc                 => doc,
+        :remove_classes      => @remove_classes,
+        :remove_class_prefix => @remove_class_prefix,
+        :remove_class_suffix => @remove_class_suffix
+      )
 
       @parser.paragraphs.each do |p|
         node.before(p)
@@ -34,7 +39,7 @@ module ODFReport
       else
         texts = texts.first
       end
-
+      
       texts
     end
 

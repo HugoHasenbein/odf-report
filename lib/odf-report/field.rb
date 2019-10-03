@@ -4,8 +4,13 @@ module ODFReport
     DELIMITERS = %w([ ])
 
     def initialize(opts, &block)
-      @name = opts[:name]
-      @data_field = opts[:data_field]
+    
+      @name                = opts[:name]
+      @data_field          = opts[:data_field]
+      
+      @remove_classes      = opts[:remove_classes]
+      @remove_class_prefix = opts[:remove_class_prefix]
+      @remove_class_suffix = opts[:remove_class_suffix]
 
       unless @value = opts[:value]
 
@@ -79,7 +84,7 @@ module ODFReport
 
     def odf_linebreak(s)
       return "" unless s
-      s.to_s.gsub("\n", "<text:line-break/>")
+      s.to_s.gsub("\n", "<text:line-break/>").gsub("<br.*?>", "<text:line-break/>")
     end
 
 
