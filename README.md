@@ -51,18 +51,18 @@ Currently suppoerted html tags
 
 ##### HTML Inline Elements
 
-<a> <span> <strong> <b <em> <i< ins> <u> <del> <strike> <sub> <sup> <ode>
+`<a>`, `<span>`, `<strong>`, `<b>`, `<em>`, `<i>`, `<ins>`, `<u>`, `<del>`, `<strike>`, `<sub>`, `<sup>`, `<ode>`
 
 ##### HTML Block Elements
 
-<ol, <ul>, li>
-<table>
-<p>
-<blockquote>
-<pre>
+`<ol>`, `<ul>`, `<li>`
+`<table>`
+`<p>`
+`<blockquote>`
+`<pre>`
 
-<ol>, <ul>, <li> may be nested
-<table> may be nested
+`<ol>`, `<ul>`, `<li>` may be nested
+`<table>` may be nested
 
 
 In the following example
