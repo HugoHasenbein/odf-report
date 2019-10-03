@@ -69,9 +69,11 @@ In the following example
 
 :text wil replace [TEXT], :example will replace [EXAMPLE], and so on
 
-`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+```ruby
+report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
   r.add_text :text, html
-end`
+end
+```
 
 #### Bookmarks
 
@@ -79,9 +81,11 @@ In the following example
 
 :text wil replace boomark TEXT, :example will replace bookmark EXAMPLE, and so on
 
-`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+```ruby
+report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
   r.add_bookmark :text, html
-end`
+end
+```
 
 html will either be copied after an empty bookmark or will replace the bookmark, which as content
 
@@ -91,16 +95,19 @@ In the following example
 
 :text will add content to named section TEXT, :example will add content to named section EXAMPLE, and so on
 
-`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+```ruby
+report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
   r.add_section_reader
   r.add_bookmark_reader
   hash = r.extract
 end
-hash = report.extract`
+hash = report.extract
+```
 
 will return a hash with all bookmarks found in the template
 
-`{
+```ruby
+{
   :content => {
     :sections => {
       "Section1" => "[TEXT]"
@@ -116,20 +123,24 @@ will return a hash with all bookmarks found in the template
     :sections=>{},
     :bookmarks=>{}
   }
-}`
+}
+```
 
 content hash contains bookmarks of the page content, styles hash contains bookmarks on the master page, i.e. footers and headers of the odt template
 
 it is possible to query specific bookmarks, sections
 
-`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+```ruby
+report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
   r.add_section_reader "My Section"
   r.add_bookmark_reader "Wonderful Bokokmark"
   hash = r.extract # here ...
 end
-hash = report.extract # ...or here`
+hash = report.extract # ...or here
+```
 
-`{
+```ruby
+{
   :content => {
     :sections => {
       "My Section" => "My Text"
@@ -142,7 +153,8 @@ hash = report.extract # ...or here`
     :sections=>{},
     :bookmarks=>{}
   }
-}`
+}
+```
 
 #### automatic styles
 
@@ -152,10 +164,12 @@ h1, h2, h3, h4, h5, h6, p, subparagraph, center, left, right,
 justify, bold, underline, italic, strikethrough, sup, sub, a, 
 pre, quote, code, table, tr, td, tc, td
 
-`report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
+```ruby
+report = ODFReport::Report.new("Users/john/my_template.odt") do |r|
   r.add_style :h1, :h2, :h3
   r.add_style :p, :a
-end`
+end
+```
 
 #### styles
 
