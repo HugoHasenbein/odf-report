@@ -173,7 +173,7 @@ end
 
 #### styles
 
-every tag will get a style name identical to its name, so <h1> will have a style-name "h1" associated to it. In your template you may create a format "h1", "h2", "p" and so forth. All styles refer to a style "body". So define font, color, size, etc in body and it will have effect on all styles. If there is no format named body, then Standard format is chosen by the odt program (LibreOffice, Word...)
+every tag will get a style name identical to its name, so `<h1>` will have a style-name "h1" associated to it. In your template you may create a format "h1", "h2", "p" and so forth. All styles refer to a style "body". So define font, color, size, etc in body and it will have effect on all styles. If there is no format named body, then Standard format is chosen by the odt program (LibreOffice, Word...)
 	
 
 #### Tables
